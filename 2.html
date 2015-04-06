@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="app2">
+<head>
+    <title>MyApp2</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <script>
+        angular.module('app2', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello, World!';
+        }).directive('clicker', function () {
+            return {
+                restrict: 'AE',
+                template: '<button>Click!</button>',
+                link: function (scope, elem, attrs) {
+                    elem.bind('click', function () {
+                        console.log('click triggered');
+                        scope.$apply(function () {
+                            scope.message = 'Clicked!';
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        <clicker></clicker>
+        <input type="text" ng-model="message"/>
+    </div>
+</body>
+</html>
